@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="my">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>For Lynn ❤️</title>
+<style>
+  *{box-sizing:border-box}
+  body{
+    margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center;
+    font-family:-apple-system,BlinkMacSystemFont,"Noto Sans Myanmar","Segoe UI",sans-serif;
+    background:linear-gradient(145deg,#ffe7ef,#fff6f8 55%,#ffdbe8);
+    color:#542b3b; overflow:hidden;
+  }
+  .card{
+    width:min(92vw,430px); min-height:620px; padding:34px 25px;
+    border-radius:30px; background:rgba(255,255,255,.78);
+    box-shadow:0 20px 60px rgba(120,50,80,.18);
+    text-align:center; display:flex; flex-direction:column; justify-content:center;
+    backdrop-filter:blur(10px);
+  }
+  .heart{font-size:58px; animation:pulse 1.4s infinite}
+  @keyframes pulse{50%{transform:scale(1.12)}}
+  h1{font-size:27px;margin:15px 0 10px}
+  p{font-size:18px;line-height:1.9;margin:8px 0;white-space:pre-line}
+  .small{font-size:14px;opacity:.72}
+  button{
+    border:0;border-radius:999px;padding:14px 27px;margin-top:24px;
+    font-size:17px;font-weight:700;background:#e88aaa;color:white;
+    box-shadow:0 8px 20px rgba(200,80,120,.25); cursor:pointer;
+  }
+  button:active{transform:scale(.97)}
+  .dots{margin-top:20px;font-size:13px;opacity:.55}
+  .floating{position:fixed;bottom:-20px;animation:float 7s linear infinite;opacity:.6}
+  @keyframes float{to{transform:translateY(-110vh) rotate(20deg);opacity:0}}
+</style>
+</head>
+<body>
+<div class="card">
+  <div id="page"></div>
+  <div id="controls"></div>
+  <div class="dots" id="dots"></div>
+</div>
+
+<script>
+const pages = [
+  {
+    icon:"💗",
+    title:"Lynn ရေ…",
+    text:"ဒီစာလေးကို အဆုံးထိဖတ်ပေးနော် 🥺\nကိုယ် မင်းကို ချော့ချင်လို့ တစ်ခုချင်းစီရေးထားတာပါ။",
+    btn:"ဆက်ဖတ်မယ် ❤️"
+  },
+  {
+    icon:"🥺",
+    title:"အရင်ဆုံး တောင်းပန်ပါတယ်",
+    text:"ကိုယ်မှားခဲ့တာရှိရင် အကြောင်းပြချက်တွေ မပေးဘဲ တကယ်တောင်းပန်ပါတယ်။\nမင်းစိတ်မကောင်းဖြစ်အောင်လုပ်မိတာကို ကိုယ်မလိုချင်ခဲ့ဘူး။",
+    btn:"နောက်တစ်ခု ❤️"
+  },
+  {
+    icon:"🫶",
+    title:"မင်းရဲ့ခံစားချက်ကို ကိုယ်နားလည်ချင်တယ်",
+    text:"မင်းစိတ်ဆိုးရင် ကိုယ်က “မစိတ်ဆိုးနဲ့” လို့ပဲ မပြောချင်ဘူး။\nဘာကြောင့်စိတ်မကောင်းဖြစ်ရလဲဆိုတာ နားထောင်ပြီး နားလည်ပေးချင်တယ်။",
+    btn:"ဆက်ဖတ်မယ် 🥺"
+  },
+  {
+    icon:"💕",
+    title:"ကိုယ်တကယ် တန်ဖိုးထားတယ်",
+    text:"မင်းက ကိုယ့်အတွက် သာမန်လူတစ်ယောက်မဟုတ်ဘူး။\nမင်းပျော်ရင် ကိုယ်လည်းပျော်တယ်။ မင်းစိတ်မကောင်းရင် ကိုယ်လည်း စိတ်မကောင်းဘူး။",
+    btn:"နောက်တစ်ခု 😚"
+  },
+  {
+    icon:"🌷",
+    title:"ကိုယ်ပြောင်းလဲပေးချင်တယ်",
+    text:"ချစ်တယ်လို့ပြောရုံနဲ့ မပြီးဘူးဆိုတာ ကိုယ်သိတယ်။\nမင်းမကြိုက်တာတွေကို သတိထားပြီး နောက်တစ်ခါ ပိုကောင်းကောင်းဆက်ဆံပေးမယ်။",
+    btn:"နောက်ဆုံးတစ်ခု ❤️"
+  },
+  {
+    icon:"😘",
+    title:"သဲလေးရေ…",
+    text:"အခုချက်ချင်း စိတ်မပြေလည်း ရပါတယ်။\nအချိန်လိုရင် အချိန်ယူပါ။\nဒါပေမယ့် မင်းကို တန်ဖိုးထားတဲ့စိတ်နဲ့ ချစ်တဲ့စိတ်ကတော့ မပြောင်းဘူးနော်။\n\nကိုယ့်ကို နည်းနည်းလေးတော့ ခွင့်လွှတ်ပေးပါ 🥺❤️\nအာဘွား 😘😘😘",
+    btn:"ကိုယ့်ကို ခွင့်လွှတ်မလား? 💗"
+  },
+  {
+    icon:"❤️",
+    title:"ကျေးဇူးတင်ပါတယ် Lynn",
+    text:"ကိုယ့်ဘဝထဲမှာ မင်းရှိနေတာကို တကယ်တန်ဖိုးထားတယ်။\nမင်းနဲ့ စိတ်ချမ်းသာစွာ ရယ်နိုင်တဲ့နေ့တွေ ပိုများလာစေချင်တယ်။\n\nချစ်တယ်… တကယ်ချစ်တယ် ❤️",
+    btn:"အစကနေ ပြန်ဖတ်မယ် 🔄"
+  }
+];
+
+let i=0;
+function render(){
+  const x=pages[i];
+  document.getElementById("page").innerHTML =
+    `<div class="heart">${x.icon}</div><h1>${x.title}</h1><p>${x.text}</p>`;
+  document.getElementById("controls").innerHTML =
+    `<button onclick="${i===pages.length-1?'restart()':'next()'}">${x.btn}</button>`;
+  document.getElementById("dots").textContent = `${i+1} / ${pages.length}`;
+}
+function next(){i++; render();}
+function restart(){i=0; render();}
+function flower(){
+  const e=document.createElement("div"); e.className="floating";
+  e.textContent=["❤️","💕","🌸","💗","✨"][Math.floor(Math.random()*5)];
+  e.style.left=Math.random()*100+"vw"; e.style.fontSize=(18+Math.random()*20)+"px";
+  e.style.animationDuration=(5+Math.random()*4)+"s";
+  document.body.appendChild(e); setTimeout(()=>e.remove(),9000);
+}
+setInterval(flower,700);
+render();
+</script>
+</body>
+</html>
